@@ -1,9 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.emp.model.*"%>
+<%@ page import="com.post.model.*"%>
 
-<% //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
-   EmpVO empVO = (EmpVO) request.getAttribute("empVO");
+<%
+
+ //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
+   PostVO postVO = (PostVO) request.getAttribute("postVO");
 %>
 
 <html>
@@ -48,7 +50,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addEmp.jsp</h3></td><td>
+		 <h3>員工資料新增 - addPost.jsp</h3></td><td>
 		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -65,7 +67,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="emp.do" name="form1">
+<FORM METHOD="post" ACTION="post.do" name="form1">
 <table>
 	
 	
@@ -73,11 +75,11 @@
 	
 	<tr>
 		<td>貼文編號:</td>
-		<td><input type="TEXT" name="postId" value="<%= (empVO==null)? "吳永志" : empVO.getPostId()%>" size="45"/></td>
+		<td><input type="TEXT" name="postId" value="<%=(postVO==null)? 1 : postVO.getPostId()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>
-		<td><input type="TEXT" name="memId"   value="<%= (empVO==null)? "MANAGER" : empVO.getMemId()%>" size="45"/></td>
+		<td><input type="TEXT" name="memId"   value="<%=(postVO==null)? 1 : postVO.getMemId()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>發表時間:</td>
@@ -85,19 +87,19 @@
 	</tr>
 	<tr>
 		<td>咖啡廳編號:</td>
-		<td><input type="TEXT" name="cafeId"   value="<%= (empVO==null)? "10000" : empVO.getCafeId()%>" size="45"/></td>
+		<td><input type="TEXT" name="cafeId"   value="<%=(postVO==null)? "10000" : postVO.getCafeId()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>貼文標題:</td>
-		<td><input type="TEXT" name="title"  value="<%= (empVO==null)? "100" : empVO.getTitle()%>" size="45"/></td>
+		<td><input type="TEXT" name="title"  value="<%=(postVO==null)? "100" : postVO.getTitle()%>" size="45"/></td>
 	</tr>
 
-	<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
+	<jsp:useBean id="empSvc" scope="page" class="com.post.model.PostService" />
 	<tr>
 		<td>部門:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="deptno">
 			<c:forEach var="deptVO" items="${deptSvc.all}">
-				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
+				<option value="${deptVO.deptno}" ${(postVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
 			</c:forEach>
 		</select></td>
 	</tr>
@@ -116,7 +118,7 @@
 <% 
   java.sql.Date time = null;
   try {
-	  time = empVO.getTime();
+	  time = postVO.getTime();
    } catch (Exception e) {
 	   time = new java.sql.Date(System.currentTimeMillis());
    }

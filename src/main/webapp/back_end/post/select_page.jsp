@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>IBM Emp: Home</title>
+<title>post: Home</title>
 
 <style>
   table#table-1 {
@@ -33,7 +33,7 @@
    <tr><td><h3>Post</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<!-- <p>This is the Home page for IBM Emp: Home</p> -->
+<!-- <p>This is the Home page for post: Home</p> -->
 
 <h3>資料查詢:</h3>
 	
@@ -48,11 +48,11 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllEmp.jsp'>List</a> all Post.  <br><br></li>
+  <li><a href='listAllPost.jsp'>List</a> all Post.  <br><br></li>
   
   
    <li> 
-    <FORM METHOD="post" ACTION="emp.do" >
+    <FORM METHOD="post" ACTION="post.do" >
         <b>輸入貼文編號:</b>
         <input type="text" name="postId">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -60,14 +60,14 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
+  <jsp:useBean id="postSvc" scope="page" class="com.post.model.PostService" />
    
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
+     <FORM METHOD="post" ACTION="post.do" >
        <b>選擇會員編號:</b>
        <select size="1" name="memId">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.postId}">${empVO.postId}
+         <c:forEach var="postVO" items="${postSvc.all}" > 
+          <option value="${postVO.postId}">${postVO.postId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -76,11 +76,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
+     <FORM METHOD="post" ACTION="post.do" >
        <b>選擇咖啡廳編號:</b>
        <select size="1" name="cafeId">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.postId}">${empVO.postId}
+         <c:forEach var="postVO" items="${postSvc.all}" > 
+          <option value="${postVO.postId}">${postVO.postId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -90,10 +90,10 @@
 </ul>
 
 
-<!-- <h3>員工管理</h3> -->
+<!-- <h3>新增</h3> -->
 
 <ul>
-<!--   <li><a href='addEmp.jsp'>Add</a> a new Emp.</li> -->
+  <li><a href='addPost.jsp'>Add</a> a new Post.</li>
 </ul>
 
 </body>

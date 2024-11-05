@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.emp.model.*"%>
+<%@ page import="com.post.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    EmpService empSvc = new EmpService();
-    List<EmpVO> list = empSvc.getAll();
+PostService postSvc = new PostService();
+    List<PostVO> list = postSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -73,28 +73,28 @@
 		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="empVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="postVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${empVO.postId}</td>
-			<td>${empVO.cafeId}</td>
-			<td>${empVO.memId}</td>
-			<td>${empVO.time}</td>
-			<td>${empVO.title}</td>
-			<td>${empVO.content}</td> 
-			<td>${empVO.count}</td>
-			<td>${empVO.status}</td>
+			<td>${postVO.postId}</td>
+			<td>${postVO.cafeId}</td>
+			<td>${postVO.memId}</td>
+			<td>${postVO.time}</td>
+			<td>${postVO.title}</td>
+			<td>${postVO.content}</td> 
+			<td>${postVO.count}</td>
+			<td>${postVO.status}</td>
 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/post.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/post/post.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${empVO.postId}">
+			     <input type="hidden" name="postId"  value="${postVO.postId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/post/post.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${empVO.postId}">
+			     <input type="hidden" name="postId"  value="${postVO.postId}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>

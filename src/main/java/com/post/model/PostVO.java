@@ -1,7 +1,7 @@
-package com.emp.model;
+package com.post.model;
 import java.sql.Date;
 
-public class EmpVO implements java.io.Serializable{
+public class PostVO implements java.io.Serializable{
 	private Integer postId;
 	private Integer cafeId;
 	private Integer memId;

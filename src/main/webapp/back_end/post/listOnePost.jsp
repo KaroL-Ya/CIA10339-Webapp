@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.emp.model.*"%>
+<%@ page import="com.post.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+  PostVO postVO = (PostVO) request.getAttribute("postVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
 
 <html>
 <head>
-<title>員工資料 - listOneEmp.jsp</title>
+<title>員工資料 - listOnePost.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,7 +49,7 @@
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - listOneEmp.jsp</h3>
+		 <h3>員工資料 - listOnepost.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -64,19 +64,18 @@
 		<th>貼文內容</th>
 		<th>按讚人數</th>
 		<th>貼文狀態</th>
-		<th>修改</th>
-		<th>刪除</th>
+
 		
 	</tr>
 	<tr>
-		<td><%=empVO.getPostId()%></td>
-		<td><%=empVO.getCafeId()%></td>
-		<td><%=empVO.getMemId()%></td>
-		<td><%=empVO.getTime()%></td>
-		<td><%=empVO.getTitle()%></td>
-		<td><%=empVO.getContent()%></td>
-		<td><%=empVO.getCount()%></td>
-		<td><%=empVO.getStatus()%></td>
+		<td><%=postVO.getPostId()%></td>
+		<td><%=postVO.getCafeId()%></td>
+		<td><%=postVO.getMemId()%></td>
+		<td><%=postVO.getTime()%></td>
+		<td><%=postVO.getTitle()%></td>
+		<td><%=postVO.getContent()%></td>
+		<td><%=postVO.getCount()%></td>
+		<td><%=postVO.getStatus()%></td>
 	</tr>
 </table>
 

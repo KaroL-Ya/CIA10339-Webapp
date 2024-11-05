@@ -1,9 +1,9 @@
-package com.emp.model;
+package com.post.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class EmpJDBCDAO implements EmpDAO_interface {
+public class PostJDBCDAO implements PostDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/ciag07?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -21,7 +21,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		"UPDATE post set POST_ID=? , CAFE_ID=?, MEM_ID=? , TIME?, TITLE=? , CONTENT=?,  COUNT=? ,STATUS=?  where POST_ID = ?";
 
 	@Override
-	public void insert(EmpVO empVO) {
+	public void insert(PostVO postVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -32,14 +32,14 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, empVO.getPostId());
-			pstmt.setInt(2, empVO.getCafeId());
-			pstmt.setInt(3, empVO.getMemId());
-			pstmt.setDate(4, empVO.getTime());
-			pstmt.setString(5, empVO.getTitle());
-			pstmt.setString(6, empVO.getContent());
-			pstmt.setInt(7, empVO.getCount());
-			pstmt.setByte(8, empVO.getStatus());
+			pstmt.setInt(1,postVO.getPostId());
+			pstmt.setInt(2, postVO.getCafeId());
+			pstmt.setInt(3, postVO.getMemId());
+			pstmt.setDate(4,postVO.getTime());
+			pstmt.setString(5, postVO.getTitle());
+			pstmt.setString(6, postVO.getContent());
+			pstmt.setInt(7, postVO.getCount());
+			pstmt.setByte(8, postVO.getStatus());
 
 			pstmt.executeUpdate();
 
@@ -72,7 +72,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 	}
 
 	@Override
-	public void update(EmpVO empVO) {
+	public void update(PostVO postVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -83,14 +83,14 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, empVO.getPostId());
-			pstmt.setInt(2, empVO.getCafeId());
-			pstmt.setInt(3, empVO.getMemId());
-			pstmt.setDate(4, empVO.getTime());
-			pstmt.setString(5, empVO.getTitle());
-			pstmt.setString(6, empVO.getContent());
-			pstmt.setInt(7, empVO.getCount());
-			pstmt.setByte(8, empVO.getStatus());
+			pstmt.setInt(1, postVO.getPostId());
+			pstmt.setInt(2, postVO.getCafeId());
+			pstmt.setInt(3, postVO.getMemId());
+			pstmt.setDate(4, postVO.getTime());
+			pstmt.setString(5, postVO.getTitle());
+			pstmt.setString(6, postVO.getContent());
+			pstmt.setInt(7, postVO.getCount());
+			pstmt.setByte(8, postVO.getStatus());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -122,7 +122,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer postId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -133,7 +133,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, postId);
 
 			pstmt.executeUpdate();
 
@@ -166,9 +166,9 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 	}
 
 	@Override
-	public EmpVO findByPrimaryKey(Integer empno) {
+	public PostVO findByPrimaryKey(Integer postId) {
 
-		EmpVO empVO = null;
+		PostVO  postVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -179,21 +179,21 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, postId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setPostId(rs.getInt("POST_ID"));
-				empVO.setCafeId(rs.getInt("CAFE_ID"));
-				empVO.setMemId(rs.getInt("MEM_ID"));
-				empVO.setTime(rs.getDate("TIME"));
-				empVO.setTitle(rs.getString("TITLE"));
-				empVO.setContent(rs.getString("CONTENT"));
-				empVO.setCount(rs.getInt("COUNT"));
-				empVO.setStatus(rs.getByte("STATUS"));
+				postVO = new PostVO();
+				postVO.setPostId(rs.getInt("POST_ID"));
+				postVO.setCafeId(rs.getInt("CAFE_ID"));
+				postVO.setMemId(rs.getInt("MEM_ID"));
+				postVO.setTime(rs.getDate("TIME"));
+				postVO.setTitle(rs.getString("TITLE"));
+				postVO.setContent(rs.getString("CONTENT"));
+				postVO.setCount(rs.getInt("COUNT"));
+				postVO.setStatus(rs.getByte("STATUS"));
 				
 			}
 			
@@ -229,13 +229,13 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 				}
 			}
 		}
-		return empVO;
+		return postVO;
 	}
 
 	@Override
-	public List<EmpVO> getAll() {
-		List<EmpVO> list = new ArrayList<EmpVO>();
-		EmpVO empVO = null;
+	public List<PostVO> getAll() {
+		List<PostVO> list = new ArrayList<PostVO>();
+		PostVO postVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -250,16 +250,16 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setPostId(rs.getInt("POST_ID"));
-				empVO.setCafeId(rs.getInt("CAFE_ID"));
-				empVO.setMemId(rs.getInt("MEM_ID"));
-				empVO.setTime(rs.getDate("TIME"));
-				empVO.setTitle(rs.getString("TITLE"));
-				empVO.setContent(rs.getString("CONTENT"));
-				empVO.setCount(rs.getInt("COUNT"));
-				empVO.setStatus(rs.getByte("STATUS"));
-				list.add(empVO); // Store the row in the list
+				postVO = new PostVO();
+				postVO.setPostId(rs.getInt("POST_ID"));
+				postVO.setCafeId(rs.getInt("CAFE_ID"));
+				postVO.setMemId(rs.getInt("MEM_ID"));
+				postVO.setTime(rs.getDate("TIME"));
+				postVO.setTitle(rs.getString("TITLE"));
+				postVO.setContent(rs.getString("CONTENT"));
+				postVO.setCount(rs.getInt("COUNT"));
+				postVO.setStatus(rs.getByte("STATUS"));
+				list.add(postVO); // Store the row in the list
 			}
 			
 
@@ -300,34 +300,37 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 
 	public static void main(String[] args) {
 
-		EmpJDBCDAO dao = new EmpJDBCDAO();
+		PostJDBCDAO dao = new PostJDBCDAO();
 
 		// 新增
-//		EmpVO empVO1 = new EmpVO();
-//		empVO1.setEname("吳永志1");
-//		empVO1.setJob("MANAGER");
-//		empVO1.setHiredate(java.sql.Date.valueOf("2005-01-01"));
-//		empVO1.setSal(new Double(50000));
-//		empVO1.setComm(new Double(500));
-//		empVO1.setDeptno(10);
-//		dao.insert(empVO1);
+		PostVO postVO1 = new PostVO();
+		postVO1.setPostId(1);
+		postVO1.setCafeId(1);
+		postVO1.setMemId(1);
+		postVO1.setTime(java.sql.Date.valueOf("2005-01-01"));
+		postVO1.setTitle("");
+		postVO1.setContent("");
+		postVO1.setCount(10);
+		postVO1.setStatus((byte) 1);
+		dao.insert(postVO1);
 
 		// 修改
-//		EmpVO empVO2 = new EmpVO();
-//		empVO2.setEmpno(7001);
-//		empVO2.setEname("吳永志2");
-//		empVO2.setJob("MANAGER2");
-//		empVO2.setHiredate(java.sql.Date.valueOf("2002-01-01"));
-//		empVO2.setSal(new Double(20000));
-//		empVO2.setComm(new Double(200));
-//		empVO2.setDeptno(20);
-//		dao.update(empVO2);
+		PostVO postVO2 = new PostVO();
+		postVO2.setPostId(1);
+		postVO2.setCafeId(1);
+		postVO2.setMemId(1);
+		postVO2.setTime(java.sql.Date.valueOf("2005-01-01"));
+		postVO2.setTitle("");
+		postVO2.setContent("");
+		postVO2.setCount(10);
+		postVO2.setStatus((byte) 1);
+		dao.update(postVO2);
 
 		// 刪除
-//		dao.delete(7014);
+		dao.delete(7014);
 		
 		// 查詢
-		EmpVO empVO3 = dao.findByPrimaryKey(7001);
+		PostVO empVO3 = dao.findByPrimaryKey(7001);
 		System.out.print(empVO3.getPostId() + ",");
 		System.out.print(empVO3.getCafeId() + ",");
 		System.out.print(empVO3.getMemId() + ",");
@@ -339,8 +342,8 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		System.out.println("---------------------");
 
 		// 查詢
-		List<EmpVO> list = dao.getAll();
-		for (EmpVO aEmp : list) {
+		List<PostVO> list = dao.getAll();
+		for (PostVO aEmp : list) {
 			System.out.print(aEmp.getPostId() + ",");
 			System.out.print(aEmp.getCafeId() + ",");
 			System.out.print(aEmp.getMemId() + ",");
